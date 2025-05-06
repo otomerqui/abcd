@@ -1,4 +1,5 @@
 
+
 let resetButton = document.getElementById('reset');
 
 function chooseLetter(array) {
@@ -25,17 +26,18 @@ resetButton.addEventListener('click', () => {
 			opciones = ['I', 'D', 'J'];
 		}
 
-		// Evitar más de 3 iguales seguidas
-		/*
-		if (i >= 3 && resultado[i - 1] === resultado[i - 2] && resultado[i - 2] === resultado[i - 3]) {
-			// Elimina la letra repetida de las opciones
-			const letraRepetida = resultado[i - 1];
-			opciones = opciones.filter(letra => letra !== letraRepetida);
-		}*/
-		// Evitar más de 2 iguales seguidas
-		if (i >= 2 && resultado[i - 1] === resultado[i - 2]) {
-			const letraRepetida = resultado[i - 1];
-			opciones = opciones.filter(letra => letra !== letraRepetida);
+		if (i <= 4) {
+			// En posiciones 0 a 4, no permitir ninguna repetición consecutiva
+			if (i >= 1 && resultado[i - 1]) {
+				const letraAnterior = resultado[i - 1];
+				opciones = opciones.filter(letra => letra !== letraAnterior);
+			}
+		} else {
+			// De la posición 5 en adelante, permitir máximo 2 iguales seguidas
+			if (i >= 2 && resultado[i - 1] === resultado[i - 2]) {
+				const letraRepetida = resultado[i - 1];
+				opciones = opciones.filter(letra => letra !== letraRepetida);
+			}
 		}
 		
 
@@ -50,5 +52,3 @@ resetButton.addEventListener('click', () => {
 		if (el) el.innerHTML = resultado[i];
 	}
 });
-
-
